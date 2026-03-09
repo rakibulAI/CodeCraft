@@ -49,7 +49,7 @@ CodeCraft
 
 If hosted with GitHub Pages:
 
-https://yourusername.github.io/codecraft
+https://rakibulAI.github.io/codecraft
 
 ---
 
