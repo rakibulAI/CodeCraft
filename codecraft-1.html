@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeCraft Academy — প্রোগ্রামিং শিখুন বাংলায়</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   ROOT — BLUE + WHITE THEME
+══════════════════════════════════════ */
+:root {
+  /* Core palette */
+  --blue-50:  #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-300: #93c5fd;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
+  --blue-950: #172554;
+
+  --cyan-400: #22d3ee;
+  --cyan-500: #06b6d4;
+  --sky-400:  #38bdf8;
+  --sky-500:  #0ea5e9;
+  --indigo-400:#818cf8;
+  --indigo-500:#6366f1;
+  --violet-500:#8b5cf6;
+
+  /* Semantic */
+  --primary:   #2563eb;
+  --primary-l: #60a5fa;
+  --accent:    #06b6d4;
+  --accent2:   #6366f1;
+  --accent3:   #22d3ee;
+
+  /* Light mode base */
+  --bg:        #f0f6ff;
+  --bg-card:   rgba(255,255,255,0.72);
+  --bg-panel:  rgba(255,255,255,0.55);
+  --bg-deep:   #dbeafe;
+  --border:    rgba(59,130,246,0.18);
+  --border-h:  rgba(59,130,246,0.38);
+
+  --text-1: #0f172a;
+  --text-2: #334155;
+  --text-3: #64748b;
+  --text-4: #94a3b8;
+
+  /* Glass */
+  --glass:    rgba(255,255,255,0.62);
+  --glass-b:  rgba(255,255,255,0.82);
+  --glass-nav:rgba(240,246,255,0.78);
+
+  /* Blur */
+  --blur-sm: blur(10px);
+  --blur-md: blur(20px);
+  --blur-lg: blur(32px);
+
+  /* Radius */
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+
+  /* Shadows */
+  --sh-sm:  0 2px 12px rgba(37,99,235,0.08);
+  --sh-md:  0 8px 32px rgba(37,99,235,0.12), 0 1px 3px rgba(0,0,0,0.04);
+  --sh-lg:  0 20px 60px rgba(37,99,235,0.15), 0 2px 8px rgba(0,0,0,0.05);
+  --sh-glow:0 0 40px rgba(37,99,235,0.18);
+  --sh-card:0 4px 24px rgba(37,99,235,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+
+  /* Typography */
+  --fd: 'Space Grotesk', sans-serif;
+  --fb: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif;
+
+  /* Transitions */
+  --t:  all 0.32s cubic-bezier(0.23, 1, 0.32, 1);
+  --tf: all 0.18s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ══════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--text-1);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body.lang-bn { font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif; }
+body.lang-zh { font-family: 'Noto Sans SC', 'Plus Jakarta Sans', sans-serif; }
+::selection { background: rgba(37,99,235,0.2); color: var(--blue-800); }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--blue-50); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--blue-400), var(--cyan-500)); border-radius: 3px; }
+
+/* ══════════════════════════════════════
+   ANIMATED BACKGROUND CANVAS
+══════════════════════════════════════ */
+.bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  overflow: hidden; pointer-events: none;
+}
+.bg-mesh {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 10% 5%,  rgba(59,130,246,0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 90% 90%,  rgba(6,182,212,0.10) 0%,  transparent 55%),
+    radial-gradient(ellipse 45% 40% at 55% 40%,  rgba(99,102,241,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 65% 50% at 80% 10%,  rgba(56,189,248,0.09) 0%, transparent 55%),
+    linear-gradient(160deg, #eff6ff 0%, #f0f6ff 35%, #e0ecff 65%, #dbeafe 100%);
+}
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(65px); opacity: 0.6;
+  animation: orbFloat 22s ease-in-out infinite;
+}
+.o1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(59,130,246,.38), transparent 70%); top: -130px; left: -130px; animation-duration: 24s; }
+.o2 { width: 380px; height: 380px; background: radial-gradient(circle, rgba(6,182,212,.3), transparent 70%); bottom: 0; right: -80px; animation-duration: 19s; animation-delay: -8s; }
+.o3 { width: 260px; height: 260px; background: radial-gradient(circle, rgba(99,102,241,.26), transparent 70%); top: 42%; left: 38%; animation-duration: 26s; animation-delay: -13s; }
+.o4 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(56,189,248,.24), transparent 70%); top: 62%; left: 12%; animation-duration: 20s; animation-delay: -5s; }
+@keyframes orbFloat {
+  0%,100% { transform: translate(0,0) scale(1); }
+  25%      { transform: translate(40px,-32px) scale(1.06); }
+  50%      { transform: translate(-22px,48px) scale(.94); }
+  75%      { transform: translate(-48px,-22px) scale(1.03); }
+}
+
+/* Subtle grid */
+.bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(59,130,246,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Floating code snippets bg deco */
+.code-deco {
+  position: absolute;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: rgba(59,130,246,.12);
+  white-space: pre;
+  pointer-events: none;
+  animation: codeDrift linear infinite;
+  line-height: 1.6;
+}
+.cd1 { top: 8%; left: 2%;  animation-duration: 35s; animation-delay: 0s; }
+.cd2 { top: 55%; right: 2%; animation-duration: 40s; animation-delay: -15s; }
+.cd3 { bottom: 5%; left: 30%; animation-duration: 38s; animation-delay: -8s; }
+@keyframes codeDrift {
+  0%,100% { transform: translateY(0); opacity: .7; }
+  50%     { transform: translateY(-18px); opacity: 1; }
+}
+
+/* Particles */
+#pts { position: absolute; inset: 0; }
+.pt {
+  position: absolute;
+  background: rgba(59,130,246,.3);
+  border-radius: 50%;
+  animation: ptRise linear infinite;
+}
+@keyframes ptRise {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: .8; }
+  100% { transform: translateY(-60px) scale(1); opacity: 0; }
+}
+
+/* ══════════════════════════════════════
+   LANGUAGE SWITCHER
+══════════════════════════════════════ */
+.lang-sw {
+  position: fixed; top: 18px; right: 20px; z-index: 9999;
+  display: flex; align-items: center; gap: 3px;
+  background: var(--glass-b);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 4px;
+  box-shadow: var(--sh-sm);
+}
+.lb {
+  padding: 6px 14px; border-radius: 50px; border: none;
+  background: transparent; color: var(--text-3);
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: var(--tf); letter-spacing: .5px; font-family: inherit;
+}
+.lb:hover { color: var(--primary); }
+.lb.active {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  box-shadow: 0 2px 12px rgba(37,99,235,.35);
+}
+
+/* ══════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9000;
+  height: 68px;
+  display: flex; align-items: center; padding: 0 5%;
+  background: var(--glass-nav);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 20px rgba(37,99,235,.06);
+  transition: var(--t);
+}
+nav.scrolled {
+  background: rgba(240,246,255,.94);
+  box-shadow: 0 4px 24px rgba(37,99,235,.1);
+  border-bottom-color: rgba(59,130,246,.22);
+}
+.n-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-right: auto; }
+.n-gem {
+  width: 42px; height: 42px; border-radius: 13px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fd); font-weight: 800; font-size: 18px; color: white;
+  box-shadow: 0 4px 18px rgba(37,99,235,.4), inset 0 1px 0 rgba(255,255,255,.3);
+  position: relative;
+}
+.n-gem::after { content: ''; position: absolute; inset: 1.5px; border-radius: 11px; border: 1.5px solid rgba(255,255,255,.35); }
+.n-name { font-family: var(--fd); font-weight: 700; font-size: 17px; color: var(--text-1); letter-spacing: -.3px; }
+.n-tag { font-size: 11px; color: var(--primary); font-weight: 600; letter-spacing: .4px; }
+.n-links { display: flex; gap: 2px; list-style: none; margin-right: 18px; }
+.n-links a {
+  display: block; padding: 7px 14px; text-decoration: none;
+  color: var(--text-2); font-size: 13.5px; font-weight: 500;
+  border-radius: 10px; transition: var(--tf);
+}
+.n-links a:hover { color: var(--primary); background: rgba(59,130,246,.08); }
+.n-acts { display: flex; gap: 8px; align-items: center; }
+
+.btn-outline {
+  padding: 8px 20px;
+  background: transparent;
+  border: 1.5px solid var(--border-h);
+  color: var(--primary); border-radius: 10px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  text-decoration: none; transition: var(--tf); font-family: inherit;
+}
+.btn-outline:hover {
+  background: rgba(59,130,246,.07);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+.btn-solid {
+  padding: 8px 20px;
+  background: linear-gradient(135deg, var(--primary), var(--blue-700));
+  border: 1.5px solid transparent;
+  color: white; border-radius: 10px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  transition: var(--tf); font-family: inherit;
+  box-shadow: 0 4px 18px rgba(37,99,235,.38), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.btn-solid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37,99,235,.52), inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+/* ══════════════════════════════════════
+   CONTENT WRAPPER
+══════════════════════════════════════ */
+.content { position: relative; z-index: 1; }
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 110px 5% 80px;
+  position: relative; overflow: hidden;
+}
+.hero-in {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 72px; align-items: center;
+  max-width: 1280px; margin: 0 auto; width: 100%;
+}
+.hero-l { animation: fadeUp 0.9s cubic-bezier(.23,1,.32,1) both; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(36px); } to { opacity:1; transform:translateY(0); } }
+
+.h-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 16px; border-radius: 50px;
+  background: rgba(37,99,235,.09);
+  border: 1.5px solid rgba(37,99,235,.22);
+  font-size: 12px; font-weight: 600; color: var(--primary);
+  margin-bottom: 24px; letter-spacing: .5px; text-transform: uppercase;
+}
+.bdot {
+  width: 6px; height: 6px; background: var(--cyan-500);
+  border-radius: 50%; box-shadow: 0 0 8px var(--cyan-500);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.5)} }
+
+.h-title {
+  font-family: var(--fd);
+  font-size: clamp(36px, 5.2vw, 68px);
+  font-weight: 700; line-height: 1.1;
+  margin-bottom: 24px; letter-spacing: -2px;
+}
+.h-title .l1 { color: var(--text-1); display: block; }
+.h-title .l2 {
+  display: block;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--indigo-500) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  filter: drop-shadow(0 2px 16px rgba(37,99,235,.25));
+}
+.h-title .l3 {
+  display: block; color: var(--text-3); font-weight: 400;
+  font-size: .52em; letter-spacing: -.3px; margin-top: 5px;
+}
+.h-desc {
+  font-size: 16.5px; color: var(--text-2); line-height: 1.82;
+  margin-bottom: 38px; max-width: 470px;
+}
+
+.h-stats {
+  display: flex; margin-bottom: 38px;
+  background: var(--glass-b);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md); overflow: hidden;
+  box-shadow: var(--sh-sm);
+  backdrop-filter: blur(12px);
+}
+.h-stat {
+  flex: 1; padding: 18px 20px; text-align: center;
+  border-right: 1.5px solid var(--border); transition: var(--tf);
+}
+.h-stat:last-child { border-right: none; }
+.h-stat:hover { background: rgba(59,130,246,.06); }
+.sval {
+  font-family: var(--fd); font-size: 24px; font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  display: block; line-height: 1; margin-bottom: 3px;
+}
+.slbl { font-size: 11.5px; color: var(--text-4); font-weight: 500; letter-spacing: .5px; }
+
+.h-btns { display: flex; gap: 12px; }
+.btn-hero-p {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--primary), var(--blue-700));
+  color: white; border-radius: var(--r-sm);
+  text-decoration: none; font-weight: 700; font-size: 15px;
+  transition: var(--t);
+  box-shadow: 0 6px 28px rgba(37,99,235,.42), inset 0 1px 0 rgba(255,255,255,.22);
+  border: 1.5px solid rgba(255,255,255,.15);
+  display: inline-flex; align-items: center; gap: 7px; font-family: inherit;
+}
+.btn-hero-p:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(37,99,235,.55); }
+.btn-hero-s {
+  padding: 14px 32px;
+  background: var(--glass-b);
+  border: 1.5px solid var(--border-h);
+  color: var(--primary); border-radius: var(--r-sm);
+  text-decoration: none; font-weight: 600; font-size: 15px;
+  transition: var(--t); backdrop-filter: blur(10px);
+  display: inline-flex; align-items: center; gap: 7px; font-family: inherit;
+}
+.btn-hero-s:hover { background: rgba(59,130,246,.08); border-color: var(--primary); transform: translateY(-2px); }
+
+/* HERO RIGHT */
+.hero-r { animation: fadeRight 1.1s cubic-bezier(.23,1,.32,1) .15s both; }
+@keyframes fadeRight { from{opacity:0;transform:translateX(44px)} to{opacity:1;transform:translateX(0)} }
+
+.glass-main {
+  background: var(--glass-b);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-xl);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  padding: 30px;
+  box-shadow: var(--sh-md), inset 0 1px 0 rgba(255,255,255,.9);
+  position: relative; overflow: hidden;
+}
+.glass-main::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,.35), transparent);
+}
+.panel-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+}
+.p-dots { display: flex; gap: 5px; }
+.pdot { width: 10px; height: 10px; border-radius: 50%; }
+.pdot-r { background: #ff5f57; }
+.pdot-y { background: #febc2e; }
+.pdot-g { background: #28c840; }
+.p-filename {
+  font-family: 'Courier New', monospace; font-size: 12px; color: var(--text-3);
+  background: rgba(59,130,246,.08); padding: 3px 10px; border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.code-block {
+  font-family: 'Courier New', monospace; font-size: 13px;
+  line-height: 1.75; margin-bottom: 20px;
+  background: rgba(239,246,255,.7); border: 1.5px solid var(--border);
+  border-radius: var(--r-sm); padding: 16px; overflow: hidden;
+}
+.c-kw  { color: #2563eb; font-weight: 600; }
+.c-fn  { color: #0891b2; }
+.c-str { color: #059669; }
+.c-cm  { color: #94a3b8; font-style: italic; }
+.c-num { color: #d97706; }
+.c-op  { color: #7c3aed; }
+
+.prog-wrap { margin-bottom: 8px; }
+.prog-label {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--text-3); margin-bottom: 6px; font-weight: 500;
+}
+.prog-track {
+  background: rgba(59,130,246,.1); border-radius: 50px; height: 6px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.prog-fill {
+  height: 100%; border-radius: 50px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  box-shadow: 0 0 8px rgba(37,99,235,.4);
+  animation: progIn 1.6s ease 1s both;
+}
+@keyframes progIn { from { width: 0 !important; } }
+
+.av-row { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+.avs { display: flex; }
+.av {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid white; margin-left: -7px;
+  font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  color: white; box-shadow: 0 1px 4px rgba(0,0,0,.12);
+}
+.av:first-child { margin-left: 0; }
+.av1{background:linear-gradient(135deg,#2563eb,#06b6d4)}.av2{background:linear-gradient(135deg,#6366f1,#8b5cf6)}.av3{background:linear-gradient(135deg,#0891b2,#22d3ee)}.av4{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
+.av-txt { font-size: 12px; color: var(--text-2); }
+.av-txt strong { color: var(--text-1); }
+
+/* Float cards */
+.fcard {
+  position: absolute;
+  background: var(--glass-b);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  backdrop-filter: var(--blur-md);
+  padding: 14px 17px;
+  animation: floatY 5s ease-in-out infinite;
+  box-shadow: var(--sh-md);
+  z-index: 5;
+}
+.fc1 { top: -22px; right: -26px; animation-delay: 0s; }
+.fc2 { bottom: -20px; left: -26px; animation-delay: -2.6s; }
+@keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-13px)} }
+.fci { font-size: 20px; margin-bottom: 3px; }
+.fcv { font-family: var(--fd); font-size: 16px; font-weight: 700; color: var(--text-1); }
+.fcl { font-size: 11px; color: var(--text-3); }
+
+/* ══════════════════════════════════════
+   SECTION BASE
+══════════════════════════════════════ */
+.sec { padding: 96px 5%; position: relative; }
+.sec-alt { background: linear-gradient(180deg, rgba(219,234,254,.3) 0%, rgba(240,246,255,.5) 100%); }
+.sec-eye {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--primary); text-align: center; margin-bottom: 10px;
+}
+.sec-h {
+  font-family: var(--fd);
+  font-size: clamp(26px, 3.8vw, 44px);
+  font-weight: 700; text-align: center;
+  color: var(--text-1); margin-bottom: 13px;
+  letter-spacing: -1.5px; line-height: 1.15;
+}
+.sec-h .gr {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.sec-sub {
+  text-align: center; color: var(--text-2); font-size: 15.5px;
+  max-width: 520px; margin: 0 auto 52px; line-height: 1.78;
+}
+
+/* ══════════════════════════════════════
+   FILTER PILLS
+══════════════════════════════════════ */
+.filters { display: flex; justify-content: center; gap: 7px; margin-bottom: 44px; flex-wrap: wrap; }
+.fp {
+  padding: 7px 18px; border-radius: 50px;
+  border: 1.5px solid var(--border); background: var(--glass-b);
+  color: var(--text-2); font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: var(--tf); backdrop-filter: blur(8px); font-family: inherit;
+}
+.fp:hover { color: var(--primary); border-color: rgba(37,99,235,.35); background: rgba(59,130,246,.06); }
+.fp.active {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-color: transparent; color: white;
+  box-shadow: 0 4px 18px rgba(37,99,235,.38);
+}
+
+/* ══════════════════════════════════════
+   COURSES GRID
+══════════════════════════════════════ */
+.cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 20px; max-width: 1280px; margin: 0 auto; }
+
+/* COURSE CARD */
+.cc {
+  background: var(--glass-b);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg); overflow: hidden;
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  transition: var(--t);
+  box-shadow: var(--sh-card);
+  position: relative; cursor: pointer;
+}
+.cc::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,.3), transparent); z-index: 1;
+}
+.cc:hover {
+  transform: translateY(-9px);
+  border-color: rgba(37,99,235,.38);
+  box-shadow: var(--sh-lg), 0 0 0 1px rgba(37,99,235,.12);
+}
+
+.cthumb { height: 180px; position: relative; overflow: hidden; }
+.cv {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 64px; position: relative;
+}
+.cv::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 30%, rgba(240,246,255,.85) 100%);
+}
+
+/* Code preview thumb */
+.code-thumb {
+  width: 100%; height: 100%;
+  background: rgba(15,23,42,.94);
+  padding: 14px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px; line-height: 1.7;
+  overflow: hidden; position: relative;
+}
+.code-thumb::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 40px; background: linear-gradient(transparent, rgba(15,23,42,.9));
+}
+.ct-line { display: block; }
+.ct-ln { color: #475569; margin-right: 12px; user-select: none; }
+.ct-kw  { color: #60a5fa; }
+.ct-fn  { color: #34d399; }
+.ct-str { color: #fbbf24; }
+.ct-cm  { color: #475569; font-style: italic; }
+.ct-op  { color: #a78bfa; }
+.ct-num { color: #fb923c; }
+
+.cbadges { position: absolute; top: 12px; left: 12px; display: flex; gap: 5px; z-index: 2; }
+.badge {
+  padding: 4px 10px; border-radius: 50px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .4px; backdrop-filter: blur(8px);
+}
+.b-hot  { background: rgba(239,68,68,.85);  color: white; border: 1px solid rgba(239,68,68,.5); }
+.b-pop  { background: rgba(37,99,235,.85);  color: white; border: 1px solid rgba(37,99,235,.5); }
+.b-new  { background: rgba(16,185,129,.85); color: white; border: 1px solid rgba(16,185,129,.5); }
+.b-free { background: rgba(99,102,241,.85); color: white; border: 1px solid rgba(99,102,241,.5); }
+
+.clvl {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(255,255,255,.88);
+  color: var(--text-2); padding: 3px 9px;
+  border-radius: 7px; font-size: 10px; font-weight: 600;
+  backdrop-filter: blur(8px); border: 1px solid var(--border); z-index: 2;
+}
+
+.cbody { padding: 20px 22px; }
+.ccat {
+  font-size: 11px; font-weight: 600; color: var(--primary);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+}
+.ctit {
+  font-family: var(--fd); font-size: 16.5px; font-weight: 700;
+  color: var(--text-1); margin-bottom: 8px; line-height: 1.3;
+}
+.cdesc {
+  font-size: 13px; color: var(--text-3); line-height: 1.65;
+  margin-bottom: 15px; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cmeta { display: flex; gap: 12px; margin-bottom: 15px; flex-wrap: wrap; }
+.cm { font-size: 12px; color: var(--text-3); display: flex; align-items: center; gap: 4px; }
+
+.cfoot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 15px; border-top: 1.5px solid rgba(59,130,246,.1);
+}
+.cprice { display: flex; align-items: baseline; gap: 7px; }
+.pn {
+  font-family: var(--fd); font-size: 21px; font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.pw { font-size: 13px; color: var(--text-4); text-decoration: line-through; }
+
+.btn-ec {
+  padding: 9px 19px;
+  background: linear-gradient(135deg, var(--primary), var(--blue-700));
+  color: white; border-radius: 10px; text-decoration: none;
+  font-size: 13px; font-weight: 700; transition: var(--tf);
+  box-shadow: 0 3px 14px rgba(37,99,235,.35);
+  border: 1.5px solid rgba(255,255,255,.2); font-family: inherit; cursor: pointer;
+  position: relative; overflow: hidden;
+}
+.btn-ec:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 7px 22px rgba(37,99,235,.5); }
+
+/* ══════════════════════════════════════
+   FEATURES
+══════════════════════════════════════ */
+.fgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; max-width: 1100px; margin: 0 auto; }
+.fcard2 {
+  background: var(--glass-b);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg); padding: 28px 24px;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  transition: var(--t); position: relative; overflow: hidden;
+  box-shadow: var(--sh-sm);
+}
+.fcard2::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,.25), transparent);
+}
+.fcard2:hover {
+  background: rgba(255,255,255,.88);
+  border-color: rgba(37,99,235,.32);
+  transform: translateY(-5px);
+  box-shadow: var(--sh-lg);
+}
+.fglow { position: absolute; top: -25px; right: -25px; width: 90px; height: 90px; border-radius: 50%; opacity: .1; filter: blur(25px); transition: var(--t); }
+.fcard2:hover .fglow { opacity: .28; }
+.fiw {
+  width: 50px; height: 50px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 23px; margin-bottom: 18px; position: relative; z-index: 1;
+}
+.ftit { font-family: var(--fd); font-size: 16px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; position: relative; z-index: 1; }
+.fdesc { font-size: 13.5px; color: var(--text-3); line-height: 1.76; position: relative; z-index: 1; }
+
+/* ══════════════════════════════════════
+   TESTIMONIALS
+══════════════════════════════════════ */
+.tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; max-width: 1100px; margin: 0 auto; }
+.tcard {
+  background: var(--glass-b); border: 1.5px solid var(--border);
+  border-radius: var(--r-lg); padding: 26px;
+  backdrop-filter: blur(14px); transition: var(--t);
+  position: relative; box-shadow: var(--sh-sm);
+}
+.tcard::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,.2), transparent);
+}
+.tcard:hover { border-color: rgba(37,99,235,.28); transform: translateY(-5px); box-shadow: var(--sh-lg); }
+.tstars { font-size: 13px; margin-bottom: 13px; letter-spacing: 2px; }
+.tq { font-size: 13.5px; color: var(--text-2); line-height: 1.82; margin-bottom: 18px; font-style: italic; }
+.tau { display: flex; align-items: center; gap: 11px; }
+.tav {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px; color: white; flex-shrink: 0;
+  border: 2px solid white; box-shadow: 0 2px 8px rgba(37,99,235,.2);
+}
+.tn { font-weight: 700; font-size: 14px; color: var(--text-1); }
+.tr { font-size: 12px; color: var(--text-4); margin-top: 2px; }
+
+/* ══════════════════════════════════════
+   INSTRUCTOR
+══════════════════════════════════════ */
+.iglass {
+  max-width: 860px; margin: 0 auto;
+  background: var(--glass-b); border: 1.5px solid var(--border);
+  border-radius: var(--r-xl); padding: 48px 52px;
+  display: flex; gap: 48px; align-items: center;
+  backdrop-filter: blur(16px); position: relative; overflow: hidden;
+  box-shadow: var(--sh-md);
+}
+.iglass::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,.38), transparent);
+}
+.iglass::after {
+  content: ''; position: absolute; bottom: -90px; right: -70px;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(37,99,235,.1), transparent 70%);
+  pointer-events: none;
+}
+.iav {
+  width: 150px; height: 150px; border-radius: 24px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 68px; position: relative;
+  box-shadow: 0 16px 44px rgba(37,99,235,.3), inset 0 1px 0 rgba(255,255,255,.25);
+  border: 1.5px solid rgba(255,255,255,.35);
+}
+.iring {
+  position: absolute; inset: -6px; border-radius: 30px;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, var(--primary), var(--accent)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out; mask-composite: exclude;
+  animation: ringPulse 3s ease-in-out infinite;
+}
+@keyframes ringPulse { 0%,100%{opacity:.3}50%{opacity:1} }
+.iname { font-family: var(--fd); font-size: 27px; font-weight: 700; color: var(--text-1); margin-bottom: 6px; letter-spacing: -.4px; }
+.itag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px; background: rgba(6,182,212,.1);
+  border: 1.5px solid rgba(6,182,212,.25); border-radius: 50px;
+  font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 16px;
+}
+.ibio { font-size: 14.5px; color: var(--text-2); line-height: 1.82; margin-bottom: 24px; }
+.istats {
+  display: flex; background: rgba(239,246,255,.6);
+  border: 1.5px solid var(--border); border-radius: var(--r-md); overflow: hidden;
+}
+.ist { flex: 1; padding: 13px 16px; text-align: center; border-right: 1.5px solid var(--border); }
+.ist:last-child { border-right: none; }
+.isv {
+  font-family: var(--fd); font-size: 20px; font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block;
+}
+.isl { font-size: 11px; color: var(--text-4); letter-spacing: .4px; }
+
+/* ══════════════════════════════════════
+   CTA
+══════════════════════════════════════ */
+.cta-sec { padding: 90px 5%; }
+.cta-g {
+  max-width: 860px; margin: 0 auto;
+  background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
+  border-radius: var(--r-xl); padding: 64px 72px;
+  text-align: center; position: relative; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(37,99,235,.4), inset 0 1px 0 rgba(255,255,255,.15);
+}
+.cta-g::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
+}
+.cta-orb {
+  position: absolute; width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(255,255,255,.12), transparent 70%);
+  border-radius: 50%; top: -100px; right: -70px; filter: blur(30px); pointer-events: none;
+}
+.cta-orb2 {
+  position: absolute; width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(6,182,212,.2), transparent 70%);
+  border-radius: 50%; bottom: -60px; left: -50px; filter: blur(25px); pointer-events: none;
+}
+.cta-g h2 {
+  font-family: var(--fd); font-size: clamp(24px, 3.8vw, 40px); font-weight: 700;
+  color: white; margin-bottom: 14px; letter-spacing: -1.3px; position: relative; z-index: 1;
+}
+.cta-g p {
+  font-size: 16px; color: rgba(255,255,255,.8);
+  margin-bottom: 38px; max-width: 460px; margin-left: auto; margin-right: auto;
+  line-height: 1.78; position: relative; z-index: 1;
+}
+.cbtns { display: flex; gap: 12px; justify-content: center; position: relative; z-index: 1; }
+.btn-cta {
+  padding: 15px 42px;
+  background: white; color: var(--primary);
+  border-radius: var(--r-md); text-decoration: none;
+  font-weight: 800; font-size: 15px; transition: var(--t);
+  box-shadow: 0 6px 24px rgba(0,0,0,.12);
+  display: inline-flex; align-items: center; gap: 7px; font-family: inherit;
+}
+.btn-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,.18); }
+.btn-cta2 {
+  padding: 15px 42px;
+  background: rgba(255,255,255,.15); color: white;
+  border-radius: var(--r-md); text-decoration: none;
+  font-weight: 600; font-size: 15px; transition: var(--t);
+  border: 1.5px solid rgba(255,255,255,.3); backdrop-filter: blur(8px);
+  display: inline-flex; align-items: center; gap: 7px; font-family: inherit;
+}
+.btn-cta2:hover { background: rgba(255,255,255,.22); transform: translateY(-2px); }
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer {
+  padding: 64px 5% 30px;
+  background: var(--glass-b);
+  border-top: 1.5px solid var(--border);
+  backdrop-filter: blur(8px); position: relative; z-index: 1;
+}
+.fgridf {
+  display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr;
+  gap: 44px; margin-bottom: 48px;
+  max-width: 1280px; margin-left: auto; margin-right: auto;
+}
+.fbdesc { font-size: 13.5px; color: var(--text-3); line-height: 1.82; margin-top: 14px; max-width: 260px; }
+.fsocs { display: flex; gap: 8px; margin-top: 18px; }
+.fsoc {
+  width: 36px; height: 36px; background: rgba(59,130,246,.08);
+  border: 1.5px solid var(--border); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; cursor: pointer; text-decoration: none;
+  transition: var(--tf); color: var(--text-2);
+}
+.fsoc:hover { background: rgba(59,130,246,.14); border-color: var(--border-h); transform: translateY(-2px); }
+.fcol h4 { font-family: var(--fd); font-weight: 700; font-size: 14px; color: var(--text-1); margin-bottom: 18px; }
+.fcol ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.fcol ul li a {
+  text-decoration: none; color: var(--text-3); font-size: 13.5px;
+  transition: var(--tf); display: inline-block;
+}
+.fcol ul li a:hover { color: var(--primary); transform: translateX(3px); }
+.fbot {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 24px; border-top: 1.5px solid var(--border);
+  font-size: 13px; color: var(--text-4);
+  max-width: 1280px; margin: 0 auto;
+}
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+.rv { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s cubic-bezier(.23,1,.32,1); }
+.rv.in { opacity: 1; transform: translateY(0); }
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ══════════════════════════════════════
+   TECH STACK STRIP
+══════════════════════════════════════ */
+.tech-strip {
+  padding: 28px 5%;
+  background: rgba(219,234,254,.35);
+  border-top: 1.5px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
+  overflow: hidden; position: relative;
+}
+.tech-track {
+  display: flex; gap: 48px; align-items: center;
+  animation: techScroll 28s linear infinite;
+  white-space: nowrap;
+}
+.tech-track:hover { animation-play-state: paused; }
+@keyframes techScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.tech-item {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--fd); font-size: 14px; font-weight: 600;
+  color: var(--text-2); white-space: nowrap; flex-shrink: 0;
+}
+.tech-item .ti { font-size: 22px; }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:1024px) {
+  .hero{padding:96px 4% 60px} .hero-in{gap:48px} .sec{padding:72px 4%}
+  .fgrid{grid-template-columns:repeat(2,1fr)} .tgrid{grid-template-columns:repeat(2,1fr)}
+  .fgridf{grid-template-columns:1fr 1fr;gap:32px} .cta-g{padding:48px 44px} .cta-sec{padding:72px 4%}
+  footer{padding:52px 4% 26px}
+}
+@media(max-width:768px) {
+  nav{padding:0 4%} .n-links{display:none} .hero{padding:88px 4% 54px}
+  .hero-in{grid-template-columns:1fr} .hero-r{display:none} .h-title{font-size:34px}
+  .sec{padding:56px 4%} .cgrid{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr} .tgrid{grid-template-columns:1fr}
+  .iglass{flex-direction:column;text-align:center;padding:32px 24px;gap:28px}
+  .fgridf{grid-template-columns:1fr} footer{padding:42px 4% 22px}
+  .cta-g{padding:40px 24px} .cbtns{flex-direction:column;align-items:center}
+  .lang-sw{top:76px;right:12px}
+}
+</style>
+</head>
+<body class="lang-bn">
+
+<!-- ═══ BG CANVAS ═══ -->
+<div class="bg-canvas">
+  <div class="bg-mesh"></div>
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div class="orb o3"></div><div class="orb o4"></div>
+  <div class="bg-grid"></div>
+  <!-- Code decorations -->
+  <pre class="code-deco cd1">const learn = () => {
+  return success();
+};
+// Start coding today
+for (let i = 0; i &lt; ∞; i++) {
+  skills++;
+}</pre>
+  <pre class="code-deco cd2">def master_python():
+  while learning:
+    grow()
+# Keep building
+import future</pre>
+  <pre class="code-deco cd3">&lt;div class="dream"&gt;
+  &lt;Code /&gt;
+  &lt;Build /&gt;
+&lt;/div&gt;</pre>
+  <div id="pts"></div>
+</div>
+
+<!-- ═══ LANG SWITCHER ═══ -->
+<div class="lang-sw">
+  <button class="lb active" onclick="setLang('bn',this)">বাংলা</button>
+  <button class="lb" onclick="setLang('en',this)">EN</button>
+  <button class="lb" onclick="setLang('zh',this)">中文</button>
+</div>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="nav">
+  <a href="#" class="n-logo">
+    <div class="n-gem">&lt;/&gt;</div>
+    <div>
+      <div class="n-name">CodeCraft Academy</div>
+      <div class="n-tag" data-bn="বাংলায় প্রোগ্রামিং শিখুন" data-en="Learn Programming in Bengali" data-zh="用孟加拉语学编程">বাংলায় প্রোগ্রামিং শিখুন</div>
+    </div>
+  </a>
+  <ul class="n-links">
+    <li><a href="#courses" data-bn="কোর্সসমূহ" data-en="Courses" data-zh="课程">কোর্সসমূহ</a></li>
+    <li><a href="#why" data-bn="কেন আমরা?" data-en="Why Us?" data-zh="为什么我们?">কেন আমরা?</a></li>
+    <li><a href="#testi" data-bn="রিভিউ" data-en="Reviews" data-zh="评价">রিভিউ</a></li>
+    <li><a href="#inst" data-bn="ইন্সট্রাক্টর" data-en="Instructor" data-zh="讲师">ইন্সট্রাক্টর</a></li>
+  </ul>
+  <div class="n-acts">
+    <a href="#" class="btn-outline" data-bn="লগইন" data-en="Login" data-zh="登录">লগইন</a>
+    <a href="#courses" class="btn-solid" data-bn="🚀 এনরোল করুন" data-en="🚀 Enroll Now" data-zh="🚀 立即报名">🚀 এনরোল করুন</a>
+  </div>
+</nav>
+
+<div class="content">
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-in">
+    <div class="hero-l">
+      <div class="h-badge">
+        <span class="bdot"></span>
+        <span data-bn="🇧🇩 বাংলাদেশের #১ প্রোগ্রামিং প্ল্যাটফর্ম" data-en="🇧🇩 Bangladesh's #1 Programming Platform" data-zh="🇧🇩 孟加拉国第一编程平台">🇧🇩 বাংলাদেশের #১ প্রোগ্রামিং প্ল্যাটফর্ম</span>
+      </div>
+      <h1 class="h-title">
+        <span class="l1" data-bn="প্রোগ্রামিং শিখুন" data-en="Learn to Code" data-zh="学习编程">প্রোগ্রামিং শিখুন</span>
+        <span class="l2" data-bn="CodeCraft Academy" data-en="CodeCraft Academy" data-zh="代码工艺学院">CodeCraft Academy</span>
+        <span class="l3" data-bn="— বাংলায়, সহজে, পেশাদারভাবে" data-en="— In Bengali, Simply & Professionally" data-zh="— 用孟加拉语，简单而专业">— বাংলায়, সহজে, পেশাদারভাবে</span>
+      </h1>
+      <p class="h-desc" data-bn="Python, Web Dev, Data Science, AI/ML — সব ধরনের প্রোগ্রামিং কোর্স এখন বাংলায়। ইন্ডাস্ট্রি-এক্সপার্ট ইন্সট্রাক্টরদের সাথে ক্যারিয়ার গড়ুন।" data-en="Python, Web Dev, Data Science, AI/ML — all programming courses now in Bengali. Build your career with industry-expert instructors." data-zh="Python、Web开发、数据科学、AI/ML——所有编程课程现以孟加拉语授课。与行业专家一起建立您的职业生涯。">Python, Web Dev, Data Science, AI/ML — সব ধরনের প্রোগ্রামিং কোর্স এখন বাংলায়। ইন্ডাস্ট্রি-এক্সপার্ট ইন্সট্রাক্টরদের সাথে ক্যারিয়ার গড়ুন।</p>
+      <div class="h-stats">
+        <div class="h-stat"><span class="sval">৩৫K+</span><span class="slbl" data-bn="শিক্ষার্থী" data-en="Students" data-zh="学生">শিক্ষার্থী</span></div>
+        <div class="h-stat"><span class="sval">২৫+</span><span class="slbl" data-bn="কোর্স" data-en="Courses" data-zh="课程">কোর্স</span></div>
+        <div class="h-stat"><span class="sval">৯৭%</span><span class="slbl" data-bn="চাকরি পেয়েছেন" data-en="Got Jobs" data-zh="已就业">চাকরি পেয়েছেন</span></div>
+        <div class="h-stat"><span class="sval">৪.৮★</span><span class="slbl" data-bn="রেটিং" data-en="Rating" data-zh="评分">রেটিং</span></div>
+      </div>
+      <div class="h-btns">
+        <a href="#courses" class="btn-hero-p" data-bn="🚀 কোর্স দেখুন" data-en="🚀 Explore Courses" data-zh="🚀 浏览课程">🚀 কোর্স দেখুন</a>
+        <a href="#why" class="btn-hero-s" data-bn="▶ ফ্রি ট্রায়াল" data-en="▶ Free Trial" data-zh="▶ 免费试用">▶ ফ্রি ট্রায়াল</a>
+      </div>
+    </div>
+
+    <div class="hero-r">
+      <div style="position:relative">
+        <div class="fcard fc1"><div class="fci">💼</div><div class="fcv">৳৮০K+</div><div class="fcl" data-bn="গড় বেতন" data-en="Avg. Salary" data-zh="平均薪资">গড় বেতন</div></div>
+        <div class="fcard fc2"><div class="fci">⚡</div><div class="fcv">6 Mo.</div><div class="fcl" data-bn="জব রেডি" data-en="Job Ready" data-zh="求职准备">জব রেডি</div></div>
+        <div class="glass-main">
+          <div class="panel-header">
+            <div class="p-dots">
+              <div class="pdot pdot-r"></div>
+              <div class="pdot pdot-y"></div>
+              <div class="pdot pdot-g"></div>
+            </div>
+            <div class="p-filename">main.py</div>
+          </div>
+          <div class="code-block">
+<span class="c-cm"># Python — বাংলায় শিখুন</span>
+<span class="c-kw">def</span> <span class="c-fn">calculate_salary</span>(experience):
+    base <span class="c-op">=</span> <span class="c-num">50000</span>
+    growth <span class="c-op">=</span> experience <span class="c-op">*</span> <span class="c-num">10000</span>
+    <span class="c-kw">return</span> base <span class="c-op">+</span> growth
+
+result <span class="c-op">=</span> <span class="c-fn">calculate_salary</span>(<span class="c-num">3</span>)
+<span class="c-fn">print</span>(<span class="c-str">f"Salary: ৳{result}"</span>)
+<span class="c-cm"># Output: Salary: ৳80000</span>
+          </div>
+          <div class="prog-wrap">
+            <div class="prog-label">
+              <span data-bn="কোর্স অগ্রগতি — Python Masterclass" data-en="Course Progress — Python Masterclass" data-zh="课程进度——Python大师班">কোর্স অগ্রগতি — Python Masterclass</span>
+              <span>78%</span>
+            </div>
+            <div class="prog-track"><div class="prog-fill" style="width:78%"></div></div>
+          </div>
+          <div class="av-row">
+            <div class="avs">
+              <div class="av av1">র</div><div class="av av2">স</div>
+              <div class="av av3">ম</div><div class="av av4">+</div>
+            </div>
+            <div class="av-txt"><strong>৮,৬৫০+</strong><span data-bn=" জন শিখছেন" data-en=" enrolled" data-zh=" 名学员"> জন শিখছেন</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TECH STRIP ═══ -->
+<div class="tech-strip">
+  <div class="tech-track">
+    <div class="tech-item"><span class="ti">🐍</span> Python</div>
+    <div class="tech-item"><span class="ti">⚛️</span> React.js</div>
+    <div class="tech-item"><span class="ti">🟨</span> JavaScript</div>
+    <div class="tech-item"><span class="ti">🗄️</span> SQL / NoSQL</div>
+    <div class="tech-item"><span class="ti">🤖</span> Machine Learning</div>
+    <div class="tech-item"><span class="ti">☕</span> Java</div>
+    <div class="tech-item"><span class="ti">🐳</span> Docker</div>
+    <div class="tech-item"><span class="ti">☁️</span> AWS / Cloud</div>
+    <div class="tech-item"><span class="ti">📱</span> Flutter</div>
+    <div class="tech-item"><span class="ti">🔷</span> TypeScript</div>
+    <!-- duplicate for seamless loop -->
+    <div class="tech-item"><span class="ti">🐍</span> Python</div>
+    <div class="tech-item"><span class="ti">⚛️</span> React.js</div>
+    <div class="tech-item"><span class="ti">🟨</span> JavaScript</div>
+    <div class="tech-item"><span class="ti">🗄️</span> SQL / NoSQL</div>
+    <div class="tech-item"><span class="ti">🤖</span> Machine Learning</div>
+    <div class="tech-item"><span class="ti">☕</span> Java</div>
+    <div class="tech-item"><span class="ti">🐳</span> Docker</div>
+    <div class="tech-item"><span class="ti">☁️</span> AWS / Cloud</div>
+    <div class="tech-item"><span class="ti">📱</span> Flutter</div>
+    <div class="tech-item"><span class="ti">🔷</span> TypeScript</div>
+  </div>
+</div>
+
+<!-- ═══ COURSES ═══ -->
+<section class="sec" id="courses">
+  <div class="sec-eye" data-bn="📚 আমাদের কোর্সসমূহ" data-en="📚 Our Courses" data-zh="📚 我们的课程">📚 আমাদের কোর্সসমূহ</div>
+  <h2 class="sec-h rv" data-bn="আপনার <span class='gr'>পছন্দের কোর্স</span> বেছে নিন" data-en="Choose Your <span class='gr'>Perfect Course</span>" data-zh="选择您的<span class='gr'>理想课程</span>">আপনার <span class="gr">পছন্দের কোর্স</span> বেছে নিন</h2>
+  <p class="sec-sub rv" data-bn="ইন্ডাস্ট্রি এক্সপার্টদের তত্ত্বাবধানে তৈরি প্রতিটি কোর্স আপনার ক্যারিয়ারকে নতুন উচ্চতায় নিয়ে যাবে।" data-en="Every course created by industry experts to take your career to new heights." data-zh="每门课程由行业专家打造，将您的职业生涯提升到新高度。">ইন্ডাস্ট্রি এক্সপার্টদের তত্ত্বাবধানে তৈরি প্রতিটি কোর্স আপনার ক্যারিয়ারকে নতুন উচ্চতায় নিয়ে যাবে।</p>
+
+  <div class="filters rv">
+    <button class="fp active" data-bn="সব কোর্স" data-en="All Courses" data-zh="全部课程">সব কোর্স</button>
+    <button class="fp" data-bn="Python" data-en="Python" data-zh="Python">Python</button>
+    <button class="fp" data-bn="Web Dev" data-en="Web Dev" data-zh="网页开发">Web Dev</button>
+    <button class="fp" data-bn="Data Science" data-en="Data Science" data-zh="数据科学">Data Science</button>
+    <button class="fp" data-bn="AI / ML" data-en="AI / ML" data-zh="人工智能">AI / ML</button>
+    <button class="fp" data-bn="ফ্রি" data-en="Free" data-zh="免费">ফ্রি</button>
+  </div>
+
+  <div class="cgrid">
+
+    <!-- C1 Python -->
+    <div class="cc rv">
+      <div class="cthumb">
+        <div class="code-thumb">
+          <span class="ct-line"><span class="ct-ln">1</span><span class="ct-kw">def</span> <span class="ct-fn">python_magic</span>():</span>
+          <span class="ct-line"><span class="ct-ln">2</span>  <span class="ct-kw">for</span> skill <span class="ct-kw">in</span> skills:</span>
+          <span class="ct-line"><span class="ct-ln">3</span>    <span class="ct-fn">master</span>(skill)</span>
+          <span class="ct-line"><span class="ct-ln">4</span>  <span class="ct-kw">return</span> <span class="ct-str">"Expert"</span></span>
+          <span class="ct-line"><span class="ct-ln">5</span></span>
+          <span class="ct-line"><span class="ct-ln">6</span><span class="ct-cm"># Start your journey</span></span>
+          <span class="ct-line"><span class="ct-ln">7</span><span class="ct-fn">python_magic</span>()</span>
+        </div>
+        <div class="cbadges"><span class="badge b-hot" data-bn="🔥 বেস্টসেলার" data-en="🔥 Bestseller" data-zh="🔥 畅销">🔥 বেস্টসেলার</span></div>
+        <div class="clvl" data-bn="বিগেনার" data-en="Beginner" data-zh="初级">বিগেনার</div>
+      </div>
+      <div class="cbody">
+        <div class="ccat">Python</div>
+        <div class="ctit" data-bn="Python Zero to Hero — সম্পূর্ণ কোর্স" data-en="Python Zero to Hero — Complete Course" data-zh="Python从零到英雄——完整课程">Python Zero to Hero — সম্পূর্ণ কোর্স</div>
+        <div class="cdesc" data-bn="একদম শুরু থেকে Python শিখুন। OOP, File I/O, API, Automation — সবকিছু বাংলায়।" data-en="Learn Python from scratch. OOP, File I/O, API, Automation — everything in Bengali." data-zh="从零开始学Python，OOP、文件I/O、API、自动化——用孟加拉语讲解。">একদম শুরু থেকে Python শিখুন। OOP, File I/O, API, Automation — সবকিছু বাংলায়।</div>
+        <div class="cmeta"><span class="cm">⏱ <span data-bn="৪০+ ঘণ্টা" data-en="40+ Hours" data-zh="40+小时">৪০+ ঘণ্টা</span></span><span class="cm">👥 ৮,৬৫০+</span><span class="cm">📹 <span data-bn="১১০+ লেসন" data-en="110+ Lessons" data-zh="110+课时">১১০+ লেসন</span></span></div>
+        <div class="cfoot"><div class="cprice"><span class="pn">৳১,৮০০</span><span class="pw">৳৪,০০০</span></div><button class="btn-ec" data-bn="এনরোল করুন" data-en="Enroll Now" data-zh="立即报名">এনরোল করুন</button></div>
+      </div>
+    </div>
+
+    <!-- C2 Web Dev -->
+    <div class="cc rv d1">
+      <div class="cthumb">
+        <div class="code-thumb">
+          <span class="ct-line"><span class="ct-ln">1</span><span class="ct-op">&lt;</span><span class="ct-fn">div</span> <span class="ct-kw">class</span>=<span class="ct-str">"app"</span><span class="ct-op">&gt;</span></span>
+          <span class="ct-line"><span class="ct-ln">2</span>  <span class="ct-op">&lt;</span><span class="ct-fn">React</span><span class="ct-op">/&gt;</span></span>
+          <span class="ct-line"><span class="ct-ln">3</span>  <span class="ct-op">&lt;</span><span class="ct-fn">Node</span><span class="ct-op">/&gt;</span></span>
+          <span class="ct-line"><span class="ct-ln">4</span>  <span class="ct-op">&lt;</span><span class="ct-fn">MongoDB</span><span class="ct-op">/&gt;</span></span>
+          <span class="ct-line"><span class="ct-ln">5</span><span class="ct-op">&lt;/</span><span class="ct-fn">div</span><span class="ct-op">&gt;</span></span>
+          <span class="ct-line"><span class="ct-ln">6</span><span class="ct-cm">// Full Stack MERN</span></span>
+        </div>
+        <div class="cbadges"><span class="badge b-pop" data-bn="⭐ জনপ্রিয়" data-en="⭐ Popular" data-zh="⭐ 热门">⭐ জনপ্রিয়</span></div>
+        <div class="clvl" data-bn="মধ্যম স্তর" data-en="Intermediate" data-zh="中级">মধ্যম স্তর</div>
+      </div>
+      <div class="cbody">
+        <div class="ccat">Web Development</div>
+        <div class="ctit" data-bn="Full Stack Web Development (MERN)" data-en="Full Stack Web Development (MERN)" data-zh="全栈网页开发(MERN)">Full Stack Web Development (MERN)</div>
+        <div class="cdesc" data-bn="React, Node.js, Express, MongoDB দিয়ে সম্পূর্ণ ওয়েব অ্যাপ বানানো শিখুন।" data-en="Build complete web apps with React, Node.js, Express, and MongoDB." data-zh="用React、Node.js、Express和MongoDB构建完整的Web应用。">React, Node.js, Express, MongoDB দিয়ে সম্পূর্ণ ওয়েব অ্যাপ বানানো শিখুন।</div>
+        <div class="cmeta"><span class="cm">⏱ <span data-bn="৫৫+ ঘণ্টা" data-en="55+ Hours" data-zh="55+小时">৫৫+ ঘণ্টা</span></span><span class="cm">👥 ৬,৪০০+</span><span class="cm">📹 <span data-bn="১৩০+ লেসন" data-en="130+ Lessons" data-zh="130+课时">১৩০+ লেসন</span></span></div>
+        <div class="cfoot"><div class="cprice"><span class="pn">৳২,৪০০</span><span class="pw">৳৫,০০০</span></div><button class="btn-ec" data-bn="এনরোল করুন" data-en="Enroll Now" data-zh="立即报名">এনরোল করুন</button></div>
+      </div>
+    </div>
+
+    <!-- C3 Data Science -->
+    <div class="cc rv d2">
+      <div class="cthumb">
+        <div class="code-thumb">
+          <span class="ct-line"><span class="ct-ln">1</span><span class="ct-kw">import</span> pandas <span class="ct-kw">as</span> pd</span>
+          <span class="ct-line"><span class="ct-ln">2</span><span class="ct-kw">import</span> numpy <span class="ct-kw">as</span> np</span>
+          <span class="ct-line"><span class="ct-ln">3</span><span class="ct-kw">from</span> sklearn <span class="ct-kw">import</span> *</span>
+          <span class="ct-line"><span class="ct-ln">4</span></span>
+          <span class="ct-line"><span class="ct-ln">5</span>df <span class="ct-op">=</span> pd.<span class="ct-fn">read_csv</span>(<span class="ct-str">'data.csv'</span>)</span>
+          <span class="ct-line"><span class="ct-ln">6</span><span class="ct-cm"># Analyze & Visualize</span></span>
+        </div>
+        <div class="cbadges"><span class="badge b-new" data-bn="🆕 নতুন" data-en="🆕 New" data-zh="🆕 新课">🆕 নতুন</span></div>
+        <div class="clvl">Advanced</div>
+      </div>
+      <div class="cbody">
+        <div class="ccat">Data Science</div>
+        <div class="ctit" data-bn="Data Science with Python — সম্পূর্ণ গাইড" data-en="Data Science with Python — Complete Guide" data-zh="Python数据科学——完整指南">Data Science with Python — সম্পূর্ণ গাইড</div>
+        <div class="cdesc" data-bn="Pandas, NumPy, Matplotlib, Scikit-Learn দিয়ে ডেটা অ্যানালাইসিস ও ভিজুয়ালাইজেশন।" data-en="Data analysis and visualization with Pandas, NumPy, Matplotlib, Scikit-Learn." data-zh="用Pandas、NumPy、Matplotlib、Scikit-Learn进行数据分析和可视化。">Pandas, NumPy, Matplotlib, Scikit-Learn দিয়ে ডেটা অ্যানালাইসিস।</div>
+        <div class="cmeta"><span class="cm">⏱ <span data-bn="৪৫+ ঘণ্টা" data-en="45+ Hours" data-zh="45+小时">৪৫+ ঘণ্টা</span></span><span class="cm">👥 ৪,৯০০+</span><span class="cm">📹 <span data-bn="১২০+ লেসন" data-en="120+ Lessons" data-zh="120+课时">১২০+ লেসন</span></span></div>
+        <div class="cfoot"><div class="cprice"><span class="pn">৳২,৮০০</span><span class="pw">৳৬,০০০</span></div><button class="btn-ec" data-bn="এনরোল করুন" data-en="Enroll Now" data-zh="立即报名">এনরোল করুন</button></div>
+      </div>
+    </div>
+
+    <!-- C4 AI/ML -->
+    <div class="cc rv">
+      <div class="cthumb">
+        <div class="code-thumb">
+          <span class="ct-line"><span class="ct-ln">1</span><span class="ct-kw">import</span> tensorflow <span class="ct-kw">as</span> tf</span>
+          <span class="ct-line"><span class="ct-ln">2</span>model <span class="ct-op">=</span> tf.<span class="ct-fn">keras</span>.<span class="ct-fn">Sequential</span>()</span>
+          <span class="ct-line"><span class="ct-ln">3</span>model.<span class="ct-fn">add</span>(Dense(<span class="ct-num">128</span>, <span class="ct-str">'relu'</span>))</span>
+          <span class="ct-line"><span class="ct-ln">4</span>model.<span class="ct-fn">compile</span>(optimizer)</span>
+          <span class="ct-line"><span class="ct-ln">5</span><span class="ct-cm"># Train your model</span></span>
+        </div>
+        <div class="cbadges"><span class="badge b-hot" data-bn="🔥 ট্রেন্ডিং" data-en="🔥 Trending" data-zh="🔥 热门趋势">🔥 ট্রেন্ডিং</span></div>
+        <div class="clvl">Advanced</div>
+      </div>
+      <div class="cbody">
+        <div class="ccat">AI / Machine Learning</div>
+        <div class="ctit" data-bn="AI & ML দিয়ে ভবিষ্যৎ গড়ুন" data-en="Build the Future with AI & ML" data-zh="用AI和ML构建未来">AI & ML দিয়ে ভবিষ্যৎ গড়ুন</div>
+        <div class="cdesc" data-bn="TensorFlow, Keras, PyTorch দিয়ে Deep Learning, NLP ও Computer Vision শিখুন।" data-en="Learn Deep Learning, NLP and Computer Vision with TensorFlow, Keras, PyTorch." data-zh="用TensorFlow、Keras、PyTorch学习深度学习、NLP和计算机视觉。">TensorFlow, Keras, PyTorch দিয়ে Deep Learning ও NLP শিখুন।</div>
+        <div class="cmeta"><span class="cm">⏱ <span data-bn="৬০+ ঘণ্টা" data-en="60+ Hours" data-zh="60+小时">৬০+ ঘণ্টা</span></span><span class="cm">👥 ৩,৭০০+</span><span class="cm">📹 <span data-bn="১৫০+ লেসন" data-en="150+ Lessons" data-zh="150+课时">১৫০+ লেসন</span></span></div>
+        <div class="cfoot"><div class="cprice"><span class="pn">৳৩,৫০০</span><span class="pw">৳৭,০০০</span></div><button class="btn-ec" data-bn="এনরোল করুন" data-en="Enroll Now" data-zh="立即报名">এনরোল করুন</button></div>
+      </div>
+    </div>
+
+    <!-- C5 Frontend FREE -->
+    <div class="cc rv d1">
+      <div class="cthumb">
+        <div class="code-thumb">
+          <span class="ct-line"><span class="ct-ln">1</span><span class="ct-op">&lt;!DOCTYPE</span> <span class="ct-kw">html</span><span class="ct-op">&gt;</span></span>
+          <span class="ct-line"><span class="ct-ln">2</span><span class="ct-op">&lt;</span><span class="ct-fn">html</span><span class="ct-op">&gt;&lt;</span><span class="ct-fn">body</span><span class="ct-op">&gt;</span></span>
+          <span class="ct-line"><span class="ct-ln">3</span>  <span class="ct-cm">/* CSS Magic */</span></span>
+          <span class="ct-line"><span class="ct-ln">4</span>  <span class="ct-fn">JS</span>.<span class="ct-fn">addEventListener</span>()</span>
+          <span class="ct-line"><span class="ct-ln">5</span><span class="ct-op">&lt;/</span><span class="ct-fn">body</span><span class="ct-op">&gt;&lt;/</span><span class="ct-fn">html</span><span class="ct-op">&gt;</span></span>
+        </div>
+        <div class="cbadges"><span class="badge b-free" data-bn="🆓 ফ্রি" data-en="🆓 Free" data-zh="🆓 免费">🆓 ফ্রি</span></div>
+        <div class="clvl" data-bn="বিগেনার" data-en="Beginner" data-zh="初级">বিগেনার</div>
+      </div>
+      <div class="cbody">
+        <div class="ccat">Web Development</div>
+        <div class="ctit" data-bn="HTML, CSS & JavaScript — ফ্রি বুটক্যাম্প" data-en="HTML, CSS & JavaScript — Free Bootcamp" data-zh="HTML、CSS和JavaScript——免费训练营">HTML, CSS & JavaScript — ফ্রি বুটক্যাম্প</div>
+        <div class="cdesc" data-bn="ওয়েব ডেভেলপমেন্টের শুরু থেকে শিখুন — HTML, CSS, JavaScript সম্পূর্ণ ফ্রিতে।" data-en="Start web development from scratch — HTML, CSS, JavaScript completely free." data-zh="从零开始学网页开发——HTML、CSS、JavaScript完全免费。">ওয়েব ডেভেলপমেন্টের শুরু থেকে শিখুন — সম্পূর্ণ ফ্রিতে।</div>
+        <div class="cmeta"><span class="cm">⏱ <span data-bn="২০+ ঘণ্টা" data-en="20+ Hours" data-zh="20+小时">২০+ ঘণ্টা</span></span><span class="cm">👥 ১২,০০০+</span><span class="cm">📹 <span data-bn="৬০+ লেসন" data-en="60+ Lessons" data-zh="60+课时">৬০+ লেসন</span></span></div>
+        <div class="cfoot"><div class="cprice"><span class="pn" data-bn="সম্পূর্ণ ফ্রি" data-en="100% Free" data-zh="完全免费">সম্পূর্ণ ফ্রি</span></div><button class="btn-ec" data-bn="শুরু করুন" data-en="Start Free" data-zh="免费开始">শুরু করুন</button></div>
+      </div>
+    </div>
+
+    <!-- C6 Mobile App -->
+    <div class="cc rv d2">
+      <div class="cthumb">
+        <div class="code-thumb">
+          <span class="ct-line"><span class="ct-ln">1</span><span class="ct-kw">import</span> <span class="ct-str">'package:flutter/material.dart'</span>;</span>
+          <span class="ct-line"><span class="ct-ln">2</span><span class="ct-kw">class</span> <span class="ct-fn">MyApp</span> <span class="ct-kw">extends</span> <span class="ct-fn">StatelessWidget</span> {</span>
+          <span class="ct-line"><span class="ct-ln">3</span>  Widget <span class="ct-fn">build</span>(context) {</span>
+          <span class="ct-line"><span class="ct-ln">4</span>    <span class="ct-kw">return</span> <span class="ct-fn">MaterialApp</span>();</span>
+          <span class="ct-line"><span class="ct-ln">5</span>  }}</span>
+        </div>
+        <div class="cbadges"><span class="badge b-new" data-bn="✨ নতুন" data-en="✨ New" data-zh="✨ 新课">✨ নতুন</span></div>
+        <div class="clvl" data-bn="মধ্যম স্তর" data-en="Intermediate" data-zh="中级">মধ্যম স্তর</div>
+      </div>
+      <div class="cbody">
+        <div class="ccat">Mobile App</div>
+        <div class="ctit" data-bn="Flutter দিয়ে Mobile App Development" data-en="Mobile App Development with Flutter" data-zh="用Flutter开发移动应用">Flutter দিয়ে Mobile App Development</div>
+        <div class="cdesc" data-bn="Flutter ও Dart দিয়ে Android ও iOS উভয় প্ল্যাটফর্মের অ্যাপ বানানো শিখুন।" data-en="Learn to build apps for Android and iOS with Flutter and Dart." data-zh="用Flutter和Dart开发Android和iOS双平台应用。">Flutter ও Dart দিয়ে Android ও iOS অ্যাপ বানানো শিখুন।</div>
+        <div class="cmeta"><span class="cm">⏱ <span data-bn="৩৫+ ঘণ্টা" data-en="35+ Hours" data-zh="35+小时">৩৫+ ঘণ্টা</span></span><span class="cm">👥 ৩,১০০+</span><span class="cm">📹 <span data-bn="৯০+ লেসন" data-en="90+ Lessons" data-zh="90+课时">৯০+ লেসন</span></span></div>
+        <div class="cfoot"><div class="cprice"><span class="pn">৳২,২০০</span><span class="pw">৳৪,৫০০</span></div><button class="btn-ec" data-bn="এনরোল করুন" data-en="Enroll Now" data-zh="立即报名">এনরোল করুন</button></div>
+      </div>
+    </div>
+
+    <!-- C7 DSA -->
+    <div class="cc rv">
+      <div class="cthumb">
+        <div class="code-thumb">
+          <span class="ct-line"><span class="ct-ln">1</span><span class="ct-cm"># Binary Search</span></span>
+          <span class="ct-line"><span class="ct-ln">2</span><span class="ct-kw">def</span> <span class="ct-fn">search</span>(arr, target):</span>
+          <span class="ct-line"><span class="ct-ln">3</span>  lo, hi <span class="ct-op">=</span> <span class="ct-num">0</span>, <span class="ct-fn">len</span>(arr)<span class="ct-op">-</span><span class="ct-num">1</span></span>
+          <span class="ct-line"><span class="ct-ln">4</span>  <span class="ct-kw">while</span> lo <span class="ct-op">&lt;=</span> hi:</span>
+          <span class="ct-line"><span class="ct-ln">5</span>    mid <span class="ct-op">=</span> (lo<span class="ct-op">+</span>hi)<span class="ct-op">//</span><span class="ct-num">2</span></span>
+        </div>
+        <div class="cbadges"><span class="badge b-pop" data-bn="⭐ জনপ্রিয়" data-en="⭐ Popular" data-zh="⭐ 热门">⭐ জনপ্রিয়</span></div>
+        <div class="clvl" data-bn="সকল স্তর" data-en="All Levels" data-zh="全级别">সকল স্তর</div>
+      </div>
+      <div class="cbody">
+        <div class="ccat">DSA & Algorithms</div>
+        <div class="ctit" data-bn="Data Structures & Algorithms Masterclass" data-en="Data Structures & Algorithms Masterclass" data-zh="数据结构与算法大师班">Data Structures & Algorithms Masterclass</div>
+        <div class="cdesc" data-bn="Array, Linked List, Tree, Graph, Dynamic Programming — সব কিছু ইন্টারভিউর জন্য প্রস্তুত হন।" data-en="Array, Linked List, Tree, Graph, Dynamic Programming — prepare for all coding interviews." data-zh="数组、链表、树、图、动态规划——为所有编程面试做准备。">Array, Linked List, Tree, Graph — কোডিং ইন্টারভিউর জন্য প্রস্তুত হন।</div>
+        <div class="cmeta"><span class="cm">⏱ <span data-bn="৫০+ ঘণ্টা" data-en="50+ Hours" data-zh="50+小时">৫০+ ঘণ্টা</span></span><span class="cm">👥 ৫,৫০০+</span><span class="cm">📹 <span data-bn="১৪০+ লেসন" data-en="140+ Lessons" data-zh="140+课时">১৪০+ লেসন</span></span></div>
+        <div class="cfoot"><div class="cprice"><span class="pn">৳২,০০০</span><span class="pw">৳৪,২০০</span></div><button class="btn-ec" data-bn="এনরোল করুন" data-en="Enroll Now" data-zh="立即报名">এনরোল করুন</button></div>
+      </div>
+    </div>
+
+    <!-- C8 DevOps -->
+    <div class="cc rv d1">
+      <div class="cthumb">
+        <div class="code-thumb">
+          <span class="ct-line"><span class="ct-ln">1</span><span class="ct-cm"># Dockerfile</span></span>
+          <span class="ct-line"><span class="ct-ln">2</span><span class="ct-kw">FROM</span> <span class="ct-fn">python</span>:<span class="ct-num">3.11</span></span>
+          <span class="ct-line"><span class="ct-ln">3</span><span class="ct-kw">WORKDIR</span> <span class="ct-str">/app</span></span>
+          <span class="ct-line"><span class="ct-ln">4</span><span class="ct-kw">COPY</span> . .</span>
+          <span class="ct-line"><span class="ct-ln">5</span><span class="ct-kw">RUN</span> pip <span class="ct-fn">install</span> -r requirements.txt</span>
+          <span class="ct-line"><span class="ct-ln">6</span><span class="ct-kw">CMD</span> [<span class="ct-str">"python"</span>, <span class="ct-str">"app.py"</span>]</span>
+        </div>
+        <div class="cbadges"><span class="badge b-hot" data-bn="🔥 বেস্টসেলার" data-en="🔥 Bestseller" data-zh="🔥 畅销">🔥 বেস্টসেলার</span></div>
+        <div class="clvl">Advanced</div>
+      </div>
+      <div class="cbody">
+        <div class="ccat">DevOps & Cloud</div>
+        <div class="ctit" data-bn="DevOps: Docker, Kubernetes & AWS" data-en="DevOps: Docker, Kubernetes & AWS" data-zh="DevOps：Docker、Kubernetes和AWS">DevOps: Docker, Kubernetes & AWS</div>
+        <div class="cdesc" data-bn="Docker, Kubernetes, CI/CD, AWS দিয়ে প্রফেশনাল DevOps ইঞ্জিনিয়ার হয়ে উঠুন।" data-en="Become a professional DevOps engineer with Docker, Kubernetes, CI/CD, and AWS." data-zh="用Docker、Kubernetes、CI/CD和AWS成为专业DevOps工程师。">Docker, Kubernetes, AWS দিয়ে প্রফেশনাল DevOps ইঞ্জিনিয়ার হয়ে উঠুন।</div>
+        <div class="cmeta"><span class="cm">⏱ <span data-bn="৪৮+ ঘণ্টা" data-en="48+ Hours" data-zh="48+小时">৪৮+ ঘণ্টা</span></span><span class="cm">👥 ২,৮০০+</span><span class="cm">📹 <span data-bn="১২৫+ লেসন" data-en="125+ Lessons" data-zh="125+课时">১২৫+ লেসন</span></span></div>
+        <div class="cfoot"><div class="cprice"><span class="pn">৳৩,০০০</span><span class="pw">৳৬,৫০০</span></div><button class="btn-ec" data-bn="এনরোল করুন" data-en="Enroll Now" data-zh="立即报名">এনরোল করুন</button></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ WHY ═══ -->
+<section class="sec sec-alt" id="why">
+  <div class="sec-eye" data-bn="💡 কেন আমরা?" data-en="💡 Why Choose Us?" data-zh="💡 为什么选择我们?">💡 কেন আমরা?</div>
+  <h2 class="sec-h rv" data-bn="CodeCraft Academy কেন <span class='gr'>আলাদা?</span>" data-en="Why CodeCraft Academy is <span class='gr'>Different?</span>" data-zh="为什么CodeCraft学院<span class='gr'>与众不同?</span>">CodeCraft Academy কেন <span class="gr">আলাদা?</span></h2>
+  <p class="sec-sub rv" data-bn="বাংলাদেশের শীর্ষ টেক কোম্পানিগুলোতে আমাদের গ্র্যাজুয়েটরা কাজ করছেন। এটাই আমাদের সাফল্যের প্রমাণ।" data-en="Our graduates work at Bangladesh's top tech companies. That's proof of our success." data-zh="我们的毕业生在孟加拉国顶尖科技公司工作，这就是我们成功的证明。">বাংলাদেশের শীর্ষ টেক কোম্পানিগুলোতে আমাদের গ্র্যাজুয়েটরা কাজ করছেন।</p>
+  <div class="fgrid">
+    <div class="fcard2 rv"><div class="fglow" style="background:#2563eb"></div><div class="fiw" style="background:rgba(37,99,235,.1);border:1.5px solid rgba(37,99,235,.22)">🎯</div><h3 class="ftit" data-bn="ইন্ডাস্ট্রি-ফোকাসড কারিকুলাম" data-en="Industry-Focused Curriculum" data-zh="以行业为导向的课程">ইন্ডাস্ট্রি-ফোকাসড কারিকুলাম</h3><p class="fdesc" data-bn="রিয়েল-ওয়ার্ল্ড প্রজেক্ট ও পোর্টফোলিও বিল্ডিং সহ ইন্ডাস্ট্রি স্ট্যান্ডার্ড কারিকুলাম।" data-en="Industry-standard curriculum with real-world projects and portfolio building." data-zh="行业标准课程，包含真实项目和作品集建设。">রিয়েল-ওয়ার্ল্ড প্রজেক্ট ও পোর্টফোলিও বিল্ডিং সহ ইন্ডাস্ট্রি স্ট্যান্ডার্ড কারিকুলাম।</p></div>
+
+    <div class="fcard2 rv d1"><div class="fglow" style="background:#06b6d4"></div><div class="fiw" style="background:rgba(6,182,212,.1);border:1.5px solid rgba(6,182,212,.22)">🖥️</div><h3 class="ftit" data-bn="লাইভ কোডিং সেশন" data-en="Live Coding Sessions" data-zh="在线编码课">লাইভ কোডিং সেশন</h3><p class="fdesc" data-bn="প্রতি সপ্তাহে লাইভ কোডিং সেশন যেখানে সরাসরি ইন্সট্রাক্টরের সাথে কোড করা যায়।" data-en="Weekly live coding sessions where you code directly with the instructor." data-zh="每周在线编码课，与讲师一起实时编写代码。">প্রতি সপ্তাহে লাইভ কোডিং সেশন — ইন্সট্রাক্টরের সাথে সরাসরি কোড করুন।</p></div>
+
+    <div class="fcard2 rv d2"><div class="fglow" style="background:#6366f1"></div><div class="fiw" style="background:rgba(99,102,241,.1);border:1.5px solid rgba(99,102,241,.22)">🤝</div><h3 class="ftit" data-bn="মেন্টরশিপ প্রোগ্রাম" data-en="Mentorship Program" data-zh="导师计划">মেন্টরশিপ প্রোগ্রাম</h3><p class="fdesc" data-bn="সিনিয়র ডেভেলপারদের সাথে 1-on-1 মেন্টরশিপ সেশন। ক্যারিয়ার গাইডেন্স সহ।" data-en="1-on-1 mentorship sessions with senior developers, including career guidance." data-zh="与高级开发人员进行一对一导师课，包括职业指导。">সিনিয়র ডেভেলপারদের সাথে 1-on-1 মেন্টরশিপ ও ক্যারিয়ার গাইডেন্স।</p></div>
+
+    <div class="fcard2 rv d3"><div class="fglow" style="background:#0891b2"></div><div class="fiw" style="background:rgba(8,145,178,.1);border:1.5px solid rgba(8,145,178,.22)">💼</div><h3 class="ftit" data-bn="জব প্লেসমেন্ট সাপোর্ট" data-en="Job Placement Support" data-zh="就业安置支持">জব প্লেসমেন্ট সাপোর্ট</h3><p class="fdesc" data-bn="CV Review, Mock Interview, এবং টপ টেক কোম্পানিতে রেফারেলের সুযোগ।" data-en="CV Review, Mock Interviews, and referral opportunities to top tech companies." data-zh="简历审查、模拟面试，以及推荐给顶级科技公司的机会。">CV Review, Mock Interview ও টপ কোম্পানিতে রেফারেলের সুযোগ।</p></div>
+
+    <div class="fcard2 rv d4"><div class="fglow" style="background:#1d4ed8"></div><div class="fiw" style="background:rgba(29,78,216,.1);border:1.5px solid rgba(29,78,216,.22)">🏆</div><h3 class="ftit" data-bn="ইন্ডাস্ট্রি সার্টিফিকেট" data-en="Industry Certificate" data-zh="行业证书">ইন্ডাস্ট্রি সার্টিফিকেট</h3><p class="fdesc" data-bn="কোর্স শেষে পাবেন বিশ্বমানের সার্টিফিকেট যা LinkedIn-এ শেয়ার করা যাবে।" data-en="World-class certificate upon completion, shareable on LinkedIn." data-zh="完成后获得世界级证书，可在LinkedIn上分享。">কোর্স শেষে পাবেন বিশ্বমানের সার্টিফিকেট যা LinkedIn-এ শেয়ার করা যাবে।</p></div>
+
+    <div class="fcard2 rv d5"><div class="fglow" style="background:#22d3ee"></div><div class="fiw" style="background:rgba(34,211,238,.1);border:1.5px solid rgba(34,211,238,.22)">🌍</div><h3 class="ftit" data-bn="৩ ভাষায় শিখুন" data-en="3 Languages" data-zh="3种语言">৩ ভাষায় শিখুন</h3><p class="fdesc" data-bn="বাংলা, ইংরেজি অথবা চাইনিজ — আপনার পছন্দের ভাষায় প্রোগ্রামিং শেখার সুযোগ।" data-en="Bengali, English, or Chinese — learn programming in your preferred language." data-zh="孟加拉语、英语或中文——用您喜欢的语言学编程。">বাংলা, ইংরেজি অথবা চাইনিজ — পছন্দের ভাষায় প্রোগ্রামিং শিখুন।</p></div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="sec" id="testi">
+  <div class="sec-eye" data-bn="💬 শিক্ষার্থীদের কথা" data-en="💬 Student Reviews" data-zh="💬 学生评价">💬 শিক্ষার্থীদের কথা</div>
+  <h2 class="sec-h rv" data-bn="তারা কী <span class='gr'>বলছেন?</span>" data-en="What They're <span class='gr'>Saying?</span>" data-zh="他们怎么<span class='gr'>说?</span>">তারা কী <span class="gr">বলছেন?</span></h2>
+  <p class="sec-sub rv" data-bn="আমাদের শিক্ষার্থীরা এখন দেশে ও বিদেশে সফটওয়্যার ইঞ্জিনিয়ার হিসেবে কাজ করছেন।" data-en="Our students now work as software engineers both in Bangladesh and abroad." data-zh="我们的学生现在在国内外担任软件工程师。">আমাদের শিক্ষার্থীরা এখন দেশে ও বিদেশে সফটওয়্যার ইঞ্জিনিয়ার হিসেবে কাজ করছেন।</p>
+  <div class="tgrid">
+    <div class="tcard rv"><div class="tstars">⭐⭐⭐⭐⭐</div><p class="tq" data-bn='"Python কোর্স করার পর মাত্র ৬ মাসে আমি একটি সফটওয়্যার কোম্পানিতে Junior Developer হিসেবে জয়েন করেছি। বেতন শুরু হয়েছে ৫০ হাজার টাকা থেকে!"' data-en='"After the Python course I joined a software company as Junior Developer in just 6 months. Starting salary 50,000 BDT!"' data-zh='"完成Python课程后，仅6个月我就加入了一家软件公司担任初级开发人员，起薪5万塔卡！"'>"Python কোর্সের পর ৬ মাসে Junior Developer হিসেবে জয়েন করেছি। বেতন ৫০,০০০ টাকা!"</p><div class="tau"><div class="tav" style="background:linear-gradient(135deg,#2563eb,#06b6d4)">র</div><div><div class="tn">রাফিদ হাসান</div><div class="tr">Junior Dev @ TechCorp BD</div></div></div></div>
+
+    <div class="tcard rv d1"><div class="tstars">⭐⭐⭐⭐⭐</div><p class="tq" data-bn='"Full Stack কোর্সটা আমার ক্যারিয়ার সম্পূর্ণ বদলে দিয়েছে। এখন আমি একটি US-based কোম্পানিতে Remote-এ কাজ করছি। Monthly ইনকাম $2000+!"' data-en='"The Full Stack course completely changed my career. I now work remotely for a US-based company. Monthly income $2000+!"' data-zh='"全栈课程彻底改变了我的职业生涯。我现在为一家美国公司远程工作，月收入2000美元以上！"'>"Full Stack কোর্সের পর US কোম্পানিতে Remote কাজ করছি। Monthly $2000+!"</p><div class="tau"><div class="tav" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">স</div><div><div class="tn">সামিয়া আক্তার</div><div class="tr">Full Stack Dev @ Remote</div></div></div></div>
+
+    <div class="tcard rv d2"><div class="tstars">⭐⭐⭐⭐⭐</div><p class="tq" data-bn='"Data Science কোর্স করার পর একটি ব্যাংকে Data Analyst হিসেবে কাজ পেয়েছি। বেতন ৮০ হাজার! CodeCraft Academy ছাড়া এটা সম্ভব হতো না।"' data-en='"After the Data Science course I got a Data Analyst job at a bank. Salary 80,000! Not possible without CodeCraft Academy."' data-zh='"完成数据科学课程后，我在一家银行找到了数据分析师的工作，薪资8万！没有CodeCraft学院这是不可能的。"'>"Data Science কোর্সের পর ব্যাংকে Data Analyst — বেতন ৮০,০০০ টাকা!"</p><div class="tau"><div class="tav" style="background:linear-gradient(135deg,#0891b2,#22d3ee)">ম</div><div><div class="tn">মাহফুজুর রহমান</div><div class="tr">Data Analyst @ BRAC Bank</div></div></div></div>
+  </div>
+</section>
+
+<!-- ═══ INSTRUCTOR ═══ -->
+<section class="sec sec-alt" id="inst">
+  <div class="sec-eye" data-bn="👨‍💻 ইন্সট্রাক্টর" data-en="👨‍💻 Instructor" data-zh="👨‍💻 讲师">👨‍💻 ইন্সট্রাক্টর</div>
+  <h2 class="sec-h rv" data-bn="আপনার <span class='gr'>মেন্টর</span> সম্পর্কে জানুন" data-en="Meet Your <span class='gr'>Mentor</span>" data-zh="认识您的<span class='gr'>导师</span>">আপনার <span class="gr">মেন্টর</span> সম্পর্কে জানুন</h2>
+  <div class="iglass rv">
+    <div><div class="iav">👨‍💻<div class="iring"></div></div></div>
+    <div>
+      <h3 class="iname">Rahim Ahmed</h3>
+      <div class="itag">💻 <span data-bn="Senior Software Engineer & Educator" data-en="Senior Software Engineer & Educator" data-zh="高级软件工程师兼教育家">Senior Software Engineer & Educator</span></div>
+      <p class="ibio" data-bn="Rahim Sir বাংলাদেশের অন্যতম সেরা Software Engineer এবং Educator। তিনি Google, Microsoft-এ কাজ করেছেন এবং ১০+ বছরের ইন্ডাস্ট্রি অভিজ্ঞতা নিয়ে এখন হাজার হাজার বাংলাদেশি শিক্ষার্থীকে প্রোগ্রামিং শেখাচ্ছেন।" data-en="Rahim Sir is one of Bangladesh's top Software Engineers and Educators. He worked at Google and Microsoft and now teaches thousands of Bangladeshi students with 10+ years of industry experience." data-zh="拉希姆老师是孟加拉国顶尖软件工程师兼教育家，曾在谷歌和微软工作，现凭借10多年行业经验教导数千名孟加拉国学生。">Rahim Sir বাংলাদেশের অন্যতম সেরা Software Engineer। তিনি Google, Microsoft-এ কাজ করেছেন এবং ১০+ বছরের অভিজ্ঞতা নিয়ে হাজার হাজার শিক্ষার্থীকে প্রোগ্রামিং শেখাচ্ছেন।</p>
+      <div class="istats">
+        <div class="ist"><span class="isv">৩৫K+</span><span class="isl" data-bn="শিক্ষার্থী" data-en="Students" data-zh="学生">শিক্ষার্থী</span></div>
+        <div class="ist"><span class="isv">২৫+</span><span class="isl" data-bn="কোর্স" data-en="Courses" data-zh="课程">কোর্স</span></div>
+        <div class="ist"><span class="isv">১০+</span><span class="isl" data-bn="বছর অভিজ্ঞতা" data-en="Yrs Exp." data-zh="年经验">বছর অভিজ্ঞতা</span></div>
+        <div class="ist"><span class="isv">৪.৮★</span><span class="isl" data-bn="রেটিং" data-en="Rating" data-zh="评分">রেটিং</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-sec">
+  <div class="cta-g rv">
+    <div class="cta-orb"></div><div class="cta-orb2"></div>
+    <h2 data-bn="আজই শুরু করুন আপনার কোডিং যাত্রা!" data-en="Start Your Coding Journey Today!" data-zh="今天就开始您的编程之旅！">আজই শুরু করুন আপনার কোডিং যাত্রা!</h2>
+    <p data-bn="৩৫,০০০+ শিক্ষার্থীর সাথে যোগ দিন এবং আপনার স্বপ্নের টেক ক্যারিয়ার গড়ুন। প্রথম কোর্স সম্পূর্ণ ফ্রি!" data-en="Join 35,000+ students and build your dream tech career. First course is completely free!" data-zh="加入35,000多名学生，建立您梦想中的科技职业。第一门课完全免费！">৩৫,০০০+ শিক্ষার্থীর সাথে যোগ দিন এবং স্বপ্নের টেক ক্যারিয়ার গড়ুন। প্রথম কোর্স সম্পূর্ণ ফ্রি!</p>
+    <div class="cbtns">
+      <a href="#courses" class="btn-cta" data-bn="🚀 বিনামূল্যে শুরু করুন" data-en="🚀 Start for Free" data-zh="🚀 免费开始">🚀 বিনামূল্যে শুরু করুন</a>
+      <a href="#courses" class="btn-cta2" data-bn="সব কোর্স দেখুন" data-en="View All Courses" data-zh="查看所有课程">সব কোর্স দেখুন</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="fgridf">
+    <div>
+      <div style="display:flex;align-items:center;gap:11px">
+        <div class="n-gem">&lt;/&gt;</div>
+        <div><div class="n-name">CodeCraft Academy</div><div class="n-tag" data-bn="বাংলায় প্রোগ্রামিং শিখুন" data-en="Learn Programming in Bengali" data-zh="用孟加拉语学编程">বাংলায় প্রোগ্রামিং শিখুন</div></div>
+      </div>
+      <p class="fbdesc" data-bn="বাংলাদেশের সেরা অনলাইন প্রোগ্রামিং শিক্ষা প্ল্যাটফর্ম। আমাদের লক্ষ্য — সবার কাছে মানসম্পন্ন টেক শিক্ষা পৌঁছে দেওয়া।" data-en="Bangladesh's premier online programming education platform. Our goal — quality tech education for everyone." data-zh="孟加拉国顶尖在线编程教育平台，让每个人都能接受优质科技教育。">বাংলাদেশের সেরা অনলাইন প্রোগ্রামিং শিক্ষা প্ল্যাটফর্ম।</p>
+      <div class="fsocs"><a href="#" class="fsoc">📘</a><a href="#" class="fsoc">📺</a><a href="#" class="fsoc">💬</a><a href="#" class="fsoc">🐦</a></div>
+    </div>
+    <div class="fcol"><h4 data-bn="কোর্সসমূহ" data-en="Courses" data-zh="课程">কোর্সসমূহ</h4><ul><li><a href="#">Python</a></li><li><a href="#">Web Development</a></li><li><a href="#">Data Science</a></li><li><a href="#">AI / ML</a></li><li><a href="#">DevOps</a></li></ul></div>
+    <div class="fcol"><h4 data-bn="কোম্পানি" data-en="Company" data-zh="公司">কোম্পানি</h4><ul><li><a href="#" data-bn="আমাদের সম্পর্কে" data-en="About Us" data-zh="关于我们">আমাদের সম্পর্কে</a></li><li><a href="#" data-bn="ইন্সট্রাক্টর" data-en="Instructor" data-zh="讲师">ইন্সট্রাক্টর</a></li><li><a href="#" data-bn="ব্লগ" data-en="Blog" data-zh="博客">ব্লগ</a></li><li><a href="#" data-bn="যোগাযোগ" data-en="Contact" data-zh="联系">যোগাযোগ</a></li></ul></div>
+    <div class="fcol"><h4 data-bn="সহায়তা" data-en="Support" data-zh="支持">সহায়তা</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">FAQ</a></li></ul></div>
+  </div>
+  <div class="fbot">
+    <span data-bn="© ২০২৫ CodeCraft Academy. সর্বস্বত্ব সংরক্ষিত।" data-en="© 2025 CodeCraft Academy. All rights reserved." data-zh="© 2025 CodeCraft学院。保留所有权利。">© ২০২৫ CodeCraft Academy. সর্বস্বত্ব সংরক্ষিত।</span>
+    <span data-bn="💙 Made with Love in Bangladesh" data-en="💙 Made with Love in Bangladesh" data-zh="💙 孟加拉国用爱制造">💙 Made with Love in Bangladesh</span>
+  </div>
+</footer>
+
+</div><!-- .content -->
+
+<script>
+/* PARTICLES */
+(function(){
+  const c=document.getElementById('pts');
+  for(let i=0;i<32;i++){
+    const p=document.createElement('div');
+    p.classList.add('pt');
+    p.style.cssText=`left:${Math.random()*100}%;width:${Math.random()*2.5+1}px;height:${Math.random()*2.5+1}px;opacity:${Math.random()*.35+.08};animation-duration:${Math.random()*20+16}s;animation-delay:${Math.random()*-22}s`;
+    c.appendChild(p);
+  }
+})();
+
+/* NAVBAR SCROLL */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>55));
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+/* FILTER PILLS */
+document.querySelectorAll('.fp').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.fp').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+/* LANGUAGE SWITCHER */
+function setLang(lang,btn){
+  document.querySelectorAll('.lb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.body.className='lang-'+lang;
+  document.querySelectorAll('[data-'+lang+']').forEach(el=>{
+    const v=el.getAttribute('data-'+lang);
+    if(v!==null)el.innerHTML=v;
+  });
+}
+
+/* SMOOTH SCROLL */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+});
+
+/* BUTTON RIPPLE */
+document.querySelectorAll('.btn-ec').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    const r=document.createElement('span');
+    r.style.cssText=`position:absolute;border-radius:50%;background:rgba(255,255,255,.32);transform:scale(0);animation:rpl .55s linear;width:70px;height:70px;left:${e.offsetX-35}px;top:${e.offsetY-35}px;pointer-events:none`;
+    this.appendChild(r);setTimeout(()=>r.remove(),550);
+  });
+});
+const st=document.createElement('style');
+st.textContent='@keyframes rpl{to{transform:scale(4.5);opacity:0}}';
+document.head.appendChild(st);
+</script>
+</body>
+</html>
